@@ -11,12 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.logoutCtrl = void 0;
 const utils_1 = require("../../utils");
+const models_1 = require("../../models");
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user } = res.locals;
-    // const user = await User.findOne({ email: userData.email }).select({
-    //   password: userData.password,
-    // });
-    console.log(user);
-    res.status(200).json(user);
+    yield models_1.User.findByIdAndUpdate({ _id: user.id }, { access_token: '' });
+    res.status(200).json('Logged out successfully');
 });
 exports.logoutCtrl = (0, utils_1.ctrlWrapper)(logout);

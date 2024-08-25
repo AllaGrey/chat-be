@@ -5,13 +5,9 @@ import { User } from '../../models';
 const logout = async (req: Request, res: Response): Promise<void> => {
   const { user } = res.locals;
 
-  // const user = await User.findOne({ email: userData.email }).select({
-  //   password: userData.password,
-  // });
+  await User.findByIdAndUpdate({ _id: user.id }, { access_token: '' });
 
-  console.log(user);
-
-  res.status(200).json(user);
+  res.status(200).json('Logged out successfully');
 };
 
 export const logoutCtrl = ctrlWrapper(logout);
