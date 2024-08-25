@@ -1,0 +1,1 @@
+export { createMessageCtrl } from './createMessage';

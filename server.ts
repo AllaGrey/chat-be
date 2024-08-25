@@ -1,8 +1,29 @@
+import mongoose from 'mongoose';
 import app from './app';
-// import { Server } from 'http';
+import { Server } from 'http';
 
-const PORT = process.env.PORT || 3001;
+const { PORT, MONGODB_URI } = process.env;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const dbConnection = async () => {
+  if (!MONGODB_URI)
+    return console.log('Failed connection: MONGODB_URI is absent');
+
+  mongoose
+    .connect(MONGODB_URI, {})
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((error: Error) => {
+      console.log('MongoDB connection error:', error);
+      process.exit(1);
+    });
+};
+
+const startServer = () => {
+  app.listen(PORT || 3001, () => {
+    console.log(`Server is running on port ${PORT}`);
+  }) as Server;
+};
+
+(async () => {
+  await dbConnection();
+  startServer();
+})();
