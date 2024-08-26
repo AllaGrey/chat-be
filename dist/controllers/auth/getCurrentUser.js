@@ -9,19 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginCtrl = void 0;
+exports.getCurrentUserCtrl = void 0;
 const utils_1 = require("../../utils");
-const models_1 = require("../../models");
-const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id, name, surname, email } = res.locals.user;
+const getCurrentUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { _id: id, name, surname, email, access_token } = res.locals.user;
     const { new_access_token } = res.locals;
-    yield models_1.User.findByIdAndUpdate(_id, { access_token: new_access_token });
     res.status(200).json({
-        id: _id,
+        id,
         name,
         surname,
         email,
-        access_token: new_access_token,
+        access_token,
     });
 });
-exports.loginCtrl = (0, utils_1.ctrlWrapper)(login);
+exports.getCurrentUserCtrl = (0, utils_1.ctrlWrapper)(getCurrentUser);

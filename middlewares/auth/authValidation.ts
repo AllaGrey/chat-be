@@ -24,6 +24,8 @@ export const authValidation = async (
 
   const user: IUser | null = await User.findOne({ email: decoded.data });
 
+  console.log(user);
+
   if (!user) {
     return next(HttpError(401, 'User not found'));
   }

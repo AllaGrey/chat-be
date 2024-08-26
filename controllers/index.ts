@@ -1,4 +1,9 @@
-export { registerCtrl, loginCtrl, logoutCtrl } from './auth';
+export {
+  registerCtrl,
+  loginCtrl,
+  logoutCtrl,
+  getCurrentUserCtrl,
+} from './auth';
 export {
   createChatCtrl,
   deleteChatCtrl,
