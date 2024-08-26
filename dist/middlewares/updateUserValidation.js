@@ -9,19 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerCtrl = void 0;
-const utils_1 = require("../../utils");
-const models_1 = require("../../models");
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, surname, email, password, access_token, avatar } = req.body;
-    const user = yield models_1.User.create({
-        name,
-        surname,
-        email,
-        password,
-        access_token,
-        avatar,
-    });
-    res.status(201).json(user);
+exports.updateUserValidation = void 0;
+const models_1 = require("../models");
+const users_1 = require("../services/users");
+const utils_1 = require("../utils");
+const updateUserValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name, surname, avatar } = req.body;
+    const id = res.locals.user._id;
+    const { error } = (0, users_1.updateUserDataValidation)({ name, surname, avatar });
+    if (error)
+        return next((0, utils_1.HttpError)(400, `${error.message}`));
+    const newUser = yield models_1.User.findByIdAndUpdate(id, { name, surname, avatar });
+    console.log(newUser);
+    res.locals.newUser = newUser;
+    next();
 });
-exports.registerCtrl = (0, utils_1.ctrlWrapper)(register);
+exports.updateUserValidation = updateUserValidation;

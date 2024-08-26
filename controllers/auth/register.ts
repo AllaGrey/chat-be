@@ -3,7 +3,7 @@ import { ctrlWrapper } from '../../utils';
 import { User } from '../../models';
 
 const register = async (req: Request, res: Response): Promise<void> => {
-  const { name, surname, email, password, access_token } = req.body;
+  const { name, surname, email, password, access_token, avatar } = req.body;
 
   const user = await User.create({
     name,
@@ -11,6 +11,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
     email,
     password,
     access_token,
+    avatar,
   });
 
   res.status(201).json(user);

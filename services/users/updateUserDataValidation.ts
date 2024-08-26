@@ -1,7 +1,7 @@
 import Joi from 'joi';
-import { RegisterData } from '../../types';
+import { UpdateData } from '../../types';
 
-export const registerDataValidation = (registerData: RegisterData) => {
+export const updateUserDataValidation = (data: UpdateData) => {
   return Joi.object()
     .options({ abortEarly: false })
     .keys({
@@ -13,18 +13,10 @@ export const registerDataValidation = (registerData: RegisterData) => {
         'any.required': 'surname is required',
         'string.empty': 'surname is required',
       }),
-      email: Joi.string().required().messages({
-        'any.required': 'email is required',
-        'string.empty': 'email is required',
-      }),
-      password: Joi.string().required().messages({
-        'any.required': 'password is required',
-        'string.empty': 'password is required',
-      }),
       avatar: Joi.string().required().messages({
         'any.required': 'avatar is required',
         'string.empty': 'avatar is required',
       }),
     })
-    .validate(registerData);
+    .validate(data);
 };

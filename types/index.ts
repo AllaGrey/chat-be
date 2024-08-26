@@ -5,4 +5,5 @@ export {
   IMessage,
   LoginData,
   RegisterData,
+  UpdateData,
 } from './types';

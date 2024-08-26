@@ -23,6 +23,10 @@ const userSchema: Schema = new Schema(
       type: String,
       required: [true, 'Access_token is required'],
     },
+    avatar: {
+      type: String,
+      required: [true, 'Avatar is required'],
+    },
   },
   { timestamps: true, versionKey: false }
 );

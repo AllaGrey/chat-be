@@ -27,7 +27,6 @@ const authValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         return next((0, utils_1.HttpError)(500, 'Invalid environment'));
     const decoded = jsonwebtoken_1.default.verify(token, JWT_SECRET);
     const user = yield models_1.User.findOne({ email: decoded.data });
-    console.log(user);
     if (!user) {
         return next((0, utils_1.HttpError)(401, 'User not found'));
     }

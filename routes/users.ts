@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { getCurrentUserCtrl } from '../controllers';
-import { authValidation } from '../middlewares';
+import { authValidation, updateUserValidation } from '../middlewares';
+import { updateUserCtrl } from '../controllers/auth';
 
 const usersRouter = Router();
 
 usersRouter.get('/current', authValidation, getCurrentUserCtrl);
-usersRouter.put('/', (req, res) => {});
+usersRouter.put('/', authValidation, updateUserValidation, updateUserCtrl);
 
 export default usersRouter;
