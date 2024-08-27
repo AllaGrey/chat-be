@@ -19,7 +19,7 @@ const updateUserValidation = (req, res, next) => __awaiter(void 0, void 0, void 
     const { error } = (0, users_1.updateUserDataValidation)({ name, surname, avatar });
     if (error)
         return next((0, utils_1.HttpError)(400, `${error.message}`));
-    const newUser = yield models_1.User.findByIdAndUpdate(id, { name, surname, avatar });
+    const newUser = yield models_1.User.findByIdAndUpdate(id, { name, surname, avatar }, { new: true });
     console.log(newUser);
     res.locals.newUser = newUser;
     next();

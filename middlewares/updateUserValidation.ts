@@ -15,7 +15,11 @@ export const updateUserValidation = async (
 
   if (error) return next(HttpError(400, `${error.message}`));
 
-  const newUser = await User.findByIdAndUpdate(id, { name, surname, avatar });
+  const newUser = await User.findByIdAndUpdate(
+    id,
+    { name, surname, avatar },
+    { new: true }
+  );
 
   console.log(newUser);
 
