@@ -2,15 +2,14 @@ import { Request, Response } from 'express';
 import { ctrlWrapper } from '../../utils';
 
 const getCurrentUser = async (req: Request, res: Response): Promise<void> => {
-  const { _id: id, name, surname, email, access_token } = res.locals.user;
-  const { new_access_token } = res.locals;
+  const { _id: id, name, surname, access_token, avatar } = res.locals.user;
 
   res.status(200).json({
     id,
     name,
     surname,
-    email,
     access_token,
+    avatar,
   });
 };
 

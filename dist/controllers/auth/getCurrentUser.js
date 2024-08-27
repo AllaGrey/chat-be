@@ -12,14 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCurrentUserCtrl = void 0;
 const utils_1 = require("../../utils");
 const getCurrentUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id: id, name, surname, email, access_token } = res.locals.user;
-    const { new_access_token } = res.locals;
+    const { _id: id, name, surname, access_token, avatar } = res.locals.user;
     res.status(200).json({
         id,
         name,
         surname,
-        email,
         access_token,
+        avatar,
     });
 });
 exports.getCurrentUserCtrl = (0, utils_1.ctrlWrapper)(getCurrentUser);
