@@ -3,8 +3,8 @@ import { ctrlWrapper } from '../../utils';
 import { Chat } from '../../models';
 
 const createChat = async (req: Request, res: Response): Promise<void> => {
-  const { partner } = req.body;
-  const currentUser = '66c99faf1d874074cf2e4344';
+  const { partner } = req.query;
+  const { _id: currentUser } = res.locals.user;
 
   const chat = await Chat.create({
     users: [currentUser, partner],

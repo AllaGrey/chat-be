@@ -28,5 +28,9 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         required: [true, 'Avatar is required'],
     },
+    chats: {
+        type: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Chat' }],
+        default: [],
+    },
 }, { timestamps: true, versionKey: false });
 exports.User = (0, mongoose_1.model)('User', userSchema);

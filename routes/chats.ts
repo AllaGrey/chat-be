@@ -5,11 +5,12 @@ import {
   getAllUserChatsCtrl,
   getChatByIdCtrl,
 } from '../controllers';
+import { authValidation } from '../middlewares';
 
 const chatsRouter = Router();
 
-chatsRouter.post('/', createChatCtrl);
-chatsRouter.get('/', getAllUserChatsCtrl);
+chatsRouter.post('/', authValidation, createChatCtrl);
+chatsRouter.get('/', authValidation, getAllUserChatsCtrl);
 chatsRouter.get('/:id', getChatByIdCtrl);
 chatsRouter.delete('/:id', deleteChatCtrl);
 

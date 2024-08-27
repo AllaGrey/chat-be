@@ -27,6 +27,10 @@ const userSchema: Schema = new Schema(
       type: String,
       required: [true, 'Avatar is required'],
     },
+    chats: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'Chat' }],
+      default: [],
+    },
   },
   { timestamps: true, versionKey: false }
 );

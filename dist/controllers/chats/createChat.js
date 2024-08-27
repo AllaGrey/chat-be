@@ -13,8 +13,8 @@ exports.createChatCtrl = void 0;
 const utils_1 = require("../../utils");
 const models_1 = require("../../models");
 const createChat = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { partner } = req.body;
-    const currentUser = '66c99faf1d874074cf2e4344';
+    const { partner } = req.query;
+    const { _id: currentUser } = res.locals.user;
     const chat = yield models_1.Chat.create({
         users: [currentUser, partner],
     });

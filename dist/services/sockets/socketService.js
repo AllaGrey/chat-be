@@ -15,6 +15,22 @@ const setupSocketIO = (server) => {
     io.on('connection', socket => {
         console.log('A user connected');
         // Handle events here
+        socket.on('sendMessage', messageText => {
+            console.log(messageText, 'sent message');
+            const message = {
+                id: 1, // Унікальний ідентифікатор, можете використовувати uuid або MongoDB ObjectId
+                sender: 'Anna Li', // Візьміть реальне ім'я користувача, якщо потрібно
+                text: messageText,
+                createdAt: new Date().toLocaleString('en-US', {
+                    weekday: 'short',
+                    month: 'short',
+                    day: '2-digit',
+                    year: 'numeric',
+                }),
+            };
+            // Відправка об'єкта повідомлення усім підключеним клієнтам
+            io.emit('message', message);
+        });
         socket.on('disconnect', () => {
             console.log('User disconnected');
         });

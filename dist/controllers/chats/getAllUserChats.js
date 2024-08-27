@@ -11,11 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllUserChatsCtrl = void 0;
 const utils_1 = require("../../utils");
-const models_1 = require("../../models");
+const services_1 = require("../../services");
 const getAllUserChats = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const currentUser = '66c99faf1d874074cf2e4344';
-    const userChats = yield models_1.Chat.find({ users: currentUser });
-    console.log(userChats);
-    res.status(200).json(userChats);
+    const { _id: currentUserId } = res.locals.user;
+    const chatsWithDetails = yield (0, services_1.getUserChatsWithDetails)(currentUserId);
+    res.status(200).json(chatsWithDetails);
 });
 exports.getAllUserChatsCtrl = (0, utils_1.ctrlWrapper)(getAllUserChats);

@@ -1,14 +1,13 @@
 import { Request, Response } from 'express';
 import { ctrlWrapper } from '../../utils';
-import { Chat } from '../../models';
+import { getUserChatsWithDetails } from '../../services';
 
 const getAllUserChats = async (req: Request, res: Response): Promise<void> => {
-  const currentUser = '66c99faf1d874074cf2e4344';
+  const { _id: currentUserId } = res.locals.user;
 
-  const userChats = await Chat.find({ users: currentUser });
-  console.log(userChats);
+  const chatsWithDetails = await getUserChatsWithDetails(currentUserId);
 
-  res.status(200).json(userChats);
+  res.status(200).json(chatsWithDetails);
 };
 
 export const getAllUserChatsCtrl = ctrlWrapper(getAllUserChats);

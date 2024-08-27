@@ -19,7 +19,6 @@ export interface IUser {
 export interface IChat {
   id: string;
   users: string[];
-  messages: IMessage[];
   createdAt?: Date;
   updatedAt?: Date;
   _id?: Types.ObjectId;
@@ -45,6 +44,7 @@ export type RegisterData = {
   surname: string;
   email: string;
   password: string;
+  avatar: string;
 };
 
 export type UpdateData = {

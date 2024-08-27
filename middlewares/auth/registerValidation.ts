@@ -12,10 +12,16 @@ export const registerValidation = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { name, surname, email, password } = req.body;
+  const { name, surname, email, password, avatar } = req.body;
   console.log(password);
 
-  const { error } = registerDataValidation({ name, surname, email, password });
+  const { error } = registerDataValidation({
+    name,
+    surname,
+    email,
+    password,
+    avatar,
+  });
   if (error) return next(HttpError(400, `${error.message}`));
 
   const user = await User.findOne({ email });
@@ -26,7 +32,14 @@ export const registerValidation = async (
 
   const access_token = createToken(email);
 
-  req.body = { name, surname, email, password: hashedPassword, access_token };
+  req.body = {
+    name,
+    surname,
+    email,
+    password: hashedPassword,
+    access_token,
+    avatar,
+  };
 
   next();
 };
