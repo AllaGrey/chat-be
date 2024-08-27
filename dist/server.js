@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
+const services_1 = require("./services");
 const { PORT, MONGODB_URI } = process.env;
 const dbConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     if (!MONGODB_URI)
@@ -27,9 +28,10 @@ const dbConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 const startServer = () => {
-    app_1.default.listen(PORT || 3001, () => {
+    const server = app_1.default.listen(PORT || 3001, () => {
         console.log(`Server is running on port ${PORT}`);
     });
+    (0, services_1.setupSocketIO)(server);
 };
 (() => __awaiter(void 0, void 0, void 0, function* () {
     yield dbConnection();

@@ -7,12 +7,11 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const routes_1 = __importDefault(require("./routes"));
+const utils_1 = require("./utils");
 const app = (0, express_1.default)();
 dotenv_1.default.config();
 const { chatsRouter, authRouter, messageRouter, usersRouter } = routes_1.default;
-const FRONT_DEV = process.env.FRONT_DEV || '';
-const FRONT_PROD = process.env.FRONT_PROD || '';
-const allowedOrigins = [FRONT_DEV, FRONT_PROD].filter(origin => origin !== '');
+const allowedOrigins = (0, utils_1.getAllowedOrigins)();
 const corsOptions = {
     origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

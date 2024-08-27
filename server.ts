@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import app from './app';
 import { Server } from 'http';
+import { setupSocketIO } from './services';
 
 const { PORT, MONGODB_URI } = process.env;
 
@@ -18,9 +19,11 @@ const dbConnection = async () => {
 };
 
 const startServer = () => {
-  app.listen(PORT || 3001, () => {
+  const server = app.listen(PORT || 3001, () => {
     console.log(`Server is running on port ${PORT}`);
   }) as Server;
+
+  setupSocketIO(server);
 };
 
 (async () => {

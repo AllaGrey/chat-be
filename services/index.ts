@@ -5,3 +5,5 @@ export {
   hashPassword,
   comparePassword,
 } from './users';
+
+export { setupSocketIO } from './sockets';

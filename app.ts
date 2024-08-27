@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { IHttpError } from './types';
 import routes from './routes';
+import { getAllowedOrigins } from './utils';
 
 const app: Application = express();
 
@@ -10,10 +11,7 @@ dotenv.config();
 
 const { chatsRouter, authRouter, messageRouter, usersRouter } = routes;
 
-const FRONT_DEV = process.env.FRONT_DEV || '';
-const FRONT_PROD = process.env.FRONT_PROD || '';
-
-const allowedOrigins = [FRONT_DEV, FRONT_PROD].filter(origin => origin !== '');
+const allowedOrigins = getAllowedOrigins();
 
 const corsOptions = {
   origin: allowedOrigins,
