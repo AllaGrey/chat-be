@@ -10,7 +10,18 @@ dotenv.config();
 
 const { chatsRouter, authRouter, messageRouter, usersRouter } = routes;
 
-app.use(cors());
+const FRONT_DEV = process.env.FRONT_DEV || '';
+const FRONT_PROD = process.env.FRONT_PROD || '';
+
+const allowedOrigins = [FRONT_DEV, FRONT_PROD].filter(origin => origin !== '');
+
+const corsOptions = {
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 

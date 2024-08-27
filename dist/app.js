@@ -10,7 +10,15 @@ const routes_1 = __importDefault(require("./routes"));
 const app = (0, express_1.default)();
 dotenv_1.default.config();
 const { chatsRouter, authRouter, messageRouter, usersRouter } = routes_1.default;
-app.use((0, cors_1.default)());
+const FRONT_DEV = process.env.FRONT_DEV || '';
+const FRONT_PROD = process.env.FRONT_PROD || '';
+const allowedOrigins = [FRONT_DEV, FRONT_PROD].filter(origin => origin !== '');
+const corsOptions = {
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+};
+app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.get('/', (req, res) => {
     res.json({ message: 'Welcome to the API!' });
