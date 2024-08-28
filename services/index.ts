@@ -4,6 +4,7 @@ export {
   createToken,
   hashPassword,
   comparePassword,
+  createUser,
 } from './users';
 
 export {

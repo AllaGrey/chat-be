@@ -9,19 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerCtrl = void 0;
-const utils_1 = require("../../utils");
-const services_1 = require("../../services");
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, surname, email, password, access_token, avatar } = req.body;
-    const user = yield (0, services_1.createUser)({
-        name,
-        surname,
-        email,
-        password,
-        access_token,
-        avatar,
-    });
-    res.status(201).json(user);
+exports.createUser = void 0;
+const models_1 = require("../../models");
+const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
+    const { _id: id, name, surname, access_token, avatar, } = yield models_1.User.create(userData);
+    return { id, name, surname, avatar, access_token };
 });
-exports.registerCtrl = (0, utils_1.ctrlWrapper)(register);
+exports.createUser = createUser;

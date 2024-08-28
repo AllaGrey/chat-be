@@ -12,12 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateUserCtrl = void 0;
 const utils_1 = require("../../utils");
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id: id, name, surname, email, access_token, avatar, } = res.locals.newUser;
+    const { _id: id, name, surname, access_token, avatar } = res.locals.newUser;
     res.status(200).json({
         id,
         name,
         surname,
-        email,
         access_token,
         avatar,
     });

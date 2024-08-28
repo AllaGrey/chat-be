@@ -11,6 +11,7 @@ export interface IUser {
   email: string;
   password: string;
   access_token?: string;
+  avatar: string;
   createdAt?: Date;
   updatedAt?: Date;
   _id?: Types.ObjectId;

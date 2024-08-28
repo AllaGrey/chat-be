@@ -13,14 +13,14 @@ exports.loginCtrl = void 0;
 const utils_1 = require("../../utils");
 const models_1 = require("../../models");
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id, name, surname, email } = res.locals.user;
+    const { _id, name, surname, email, avatar } = res.locals.user;
     const { new_access_token } = res.locals;
     yield models_1.User.findByIdAndUpdate(_id, { access_token: new_access_token });
     res.status(200).json({
         id: _id,
         name,
         surname,
-        email,
+        avatar,
         access_token: new_access_token,
     });
 });

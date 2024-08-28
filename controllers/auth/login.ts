@@ -3,7 +3,7 @@ import { ctrlWrapper } from '../../utils';
 import { User } from '../../models';
 
 const login = async (req: Request, res: Response): Promise<void> => {
-  const { _id, name, surname, email } = res.locals.user;
+  const { _id, name, surname, email, avatar } = res.locals.user;
   const { new_access_token } = res.locals;
 
   await User.findByIdAndUpdate(_id, { access_token: new_access_token });
@@ -12,7 +12,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
     id: _id,
     name,
     surname,
-    email,
+    avatar,
     access_token: new_access_token,
   });
 };
