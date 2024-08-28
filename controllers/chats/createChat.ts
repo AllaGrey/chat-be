@@ -1,16 +1,12 @@
 import { Request, Response } from 'express';
 import { ctrlWrapper } from '../../utils';
-import { Chat } from '../../models';
+import { createChatWithUpdateUsers } from '../../services';
 
 const createChat = async (req: Request, res: Response): Promise<void> => {
   const { partner } = req.query;
   const { _id: currentUser } = res.locals.user;
 
-  const chat = await Chat.create({
-    users: [currentUser, partner],
-  });
-
-  console.log(chat);
+  const chat = await createChatWithUpdateUsers(currentUser, partner as string);
 
   res.status(201).json(chat);
 };

@@ -9,13 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createChatCtrl = void 0;
-const utils_1 = require("../../utils");
-const services_1 = require("../../services");
-const createChat = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { partner } = req.query;
-    const { _id: currentUser } = res.locals.user;
-    const chat = yield (0, services_1.createChatWithUpdateUsers)(currentUser, partner);
-    res.status(201).json(chat);
+exports.createChatWithUpdateUsers = void 0;
+const models_1 = require("../../models");
+const createChatWithUpdateUsers = (currentUser, partner) => __awaiter(void 0, void 0, void 0, function* () {
+    const chat = yield models_1.Chat.create({
+        users: [currentUser, partner],
+    });
+    yield Promise.all([
+        models_1.User.findByIdAndUpdate(currentUser, { $push: { chats: chat._id } }),
+        models_1.User.findByIdAndUpdate(partner, { $push: { chats: chat._id } }),
+    ]);
+    return Object.assign(Object.assign({}, chat), { id: chat._id });
 });
-exports.createChatCtrl = (0, utils_1.ctrlWrapper)(createChat);
+exports.createChatWithUpdateUsers = createChatWithUpdateUsers;

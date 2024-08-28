@@ -21,9 +21,9 @@ export const getUserChatsWithDetails = async (currentUserId: string) => {
         .lean();
 
       return {
-        ...chat,
-        otherUser: otherUser || null,
-        latestMessage: latestMessage || null,
+        id: chat._id,
+        otherUser: { ...otherUser, id: otherUser?._id } || null,
+        latestMessage: { ...latestMessage, id: latestMessage?._id } || null,
       };
     })
   );

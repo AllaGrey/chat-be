@@ -20,7 +20,11 @@ const getUserChatsWithDetails = (currentUserId) => __awaiter(void 0, void 0, voi
             .sort({ createdAt: -1 })
             .select('text createdAt')
             .lean();
-        return Object.assign(Object.assign({}, chat), { otherUser: otherUser || null, latestMessage: latestMessage || null });
+        return {
+            id: chat._id,
+            otherUser: Object.assign(Object.assign({}, otherUser), { id: otherUser === null || otherUser === void 0 ? void 0 : otherUser._id }) || null,
+            latestMessage: Object.assign(Object.assign({}, latestMessage), { id: latestMessage === null || latestMessage === void 0 ? void 0 : latestMessage._id }) || null,
+        };
     })));
     return chatsWithDetails;
 });
