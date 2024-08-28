@@ -14,8 +14,9 @@ const utils_1 = require("../../utils");
 const models_1 = require("../../models");
 const getChatById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const result = yield models_1.Chat.findById(id);
-    console.log(result);
-    res.status(200).json(result);
+    const messageList = yield models_1.Message.find({ chat: id })
+        .sort({ createdAt: 1 })
+        .lean();
+    res.status(200).json(messageList);
 });
 exports.getChatByIdCtrl = (0, utils_1.ctrlWrapper)(getChatById);

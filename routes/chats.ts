@@ -11,7 +11,7 @@ const chatsRouter = Router();
 
 chatsRouter.post('/', authValidation, createChatCtrl);
 chatsRouter.get('/', authValidation, getAllUserChatsCtrl);
-chatsRouter.get('/:id', getChatByIdCtrl);
-chatsRouter.delete('/:id', deleteChatCtrl);
+chatsRouter.get('/:id', authValidation, getChatByIdCtrl);
+chatsRouter.delete('/:id', authValidation, deleteChatCtrl);
 
 export default chatsRouter;

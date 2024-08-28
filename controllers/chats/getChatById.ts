@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
 import { ctrlWrapper } from '../../utils';
-import { Chat } from '../../models';
+import { Chat, Message } from '../../models';
 
 const getChatById = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
 
-  const result = await Chat.findById(id);
-  console.log(result);
+  const messageList = await Message.find({ chat: id })
+    .sort({ createdAt: 1 })
+    .lean();
 
-  res.status(200).json(result);
+  res.status(200).json(messageList);
 };
 
 export const getChatByIdCtrl = ctrlWrapper(getChatById);
