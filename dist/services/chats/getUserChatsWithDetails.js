@@ -21,9 +21,9 @@ const getUserChatsWithDetails = (currentUserId) => __awaiter(void 0, void 0, voi
             .select('text createdAt')
             .lean();
         return {
-            id: chat._id,
-            otherUser: Object.assign(Object.assign({}, otherUser), { id: otherUser === null || otherUser === void 0 ? void 0 : otherUser._id }) || null,
-            latestMessage: Object.assign(Object.assign({}, latestMessage), { id: latestMessage === null || latestMessage === void 0 ? void 0 : latestMessage._id }) || null,
+            _id: chat._id,
+            otherUser: otherUser || null,
+            latestMessage: latestMessage || null,
         };
     })));
     return chatsWithDetails;
