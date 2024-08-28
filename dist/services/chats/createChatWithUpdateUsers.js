@@ -19,6 +19,6 @@ const createChatWithUpdateUsers = (currentUser, partner) => __awaiter(void 0, vo
         models_1.User.findByIdAndUpdate(currentUser, { $push: { chats: chat._id } }),
         models_1.User.findByIdAndUpdate(partner, { $push: { chats: chat._id } }),
     ]);
-    return Object.assign(Object.assign({}, chat), { id: chat._id });
+    return chat;
 });
 exports.createChatWithUpdateUsers = createChatWithUpdateUsers;
