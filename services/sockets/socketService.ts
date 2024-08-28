@@ -1,6 +1,7 @@
 import { Server as SocketIOServer } from 'socket.io';
 import { Server } from 'http';
 import { getAllowedOrigins } from '../../utils';
+import { Message } from '../../models';
 
 export const setupSocketIO = (server: Server) => {
   const allowedOrigins = getAllowedOrigins();
@@ -15,24 +16,13 @@ export const setupSocketIO = (server: Server) => {
 
   io.on('connection', socket => {
     console.log('A user connected');
-    // Handle events here
 
-    socket.on('sendMessage', messageText => {
-      console.log(messageText, 'sent message');
-      const message = {
-        id: 1, // Унікальний ідентифікатор, можете використовувати uuid або MongoDB ObjectId
-        sender: 'Anna Li', // Візьміть реальне ім'я користувача, якщо потрібно
-        text: messageText,
-        createdAt: new Date().toLocaleString('en-US', {
-          weekday: 'short',
-          month: 'short',
-          day: '2-digit',
-          year: 'numeric',
-        }),
-      };
+    socket.on('sendMessage', async message => {
+      const data = JSON.parse(message);
 
-      // Відправка об'єкта повідомлення усім підключеним клієнтам
-      io.emit('message', message);
+      const newMessage = await Message.create(data);
+
+      io.emit('message', JSON.stringify(newMessage));
     });
 
     socket.on('disconnect', () => {
