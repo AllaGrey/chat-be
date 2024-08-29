@@ -1,8 +1,16 @@
-import { User } from '../../models';
+import { Chat, User } from '../../models';
 
 export const getAllUsers = async (currentUserId: string) => {
+  const userChats = await Chat.find({ users: currentUserId }).select('users');
+
+  const usersWithChats = userChats
+    .flatMap(chat => chat.users)
+    .map(userId => userId);
+
+  usersWithChats.push(currentUserId);
+
   const users = await User.find(
-    { _id: { $ne: currentUserId } },
+    { _id: { $nin: usersWithChats } },
     { _id: 1, name: 1, surname: 1, avatar: 1 }
   ).lean();
 
