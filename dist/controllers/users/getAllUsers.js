@@ -14,8 +14,7 @@ const utils_1 = require("../../utils");
 const services_1 = require("../../services");
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const currentUserId = res.locals.user._id.toString();
-    const users = yield (0, services_1.getAllUsers)();
-    const usersWithoutCurrent = users.filter(user => user.id !== currentUserId);
-    res.status(200).json(usersWithoutCurrent);
+    const users = yield (0, services_1.getAllUsers)(currentUserId);
+    res.status(200).json(users);
 });
 exports.getAllUsersCtrl = (0, utils_1.ctrlWrapper)(getUsers);

@@ -11,8 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllUsers = void 0;
 const models_1 = require("../../models");
-const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield models_1.User.find({}, { _id: 1, name: 1, surname: 1, avatar: 1 }).lean();
+const getAllUsers = (currentUserId) => __awaiter(void 0, void 0, void 0, function* () {
+    const users = yield models_1.User.find({ _id: { $ne: currentUserId } }, { _id: 1, name: 1, surname: 1, avatar: 1 }).lean();
     const transformedUsers = users.map(user => ({
         id: user._id,
         name: user.name,

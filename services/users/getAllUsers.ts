@@ -1,8 +1,8 @@
 import { User } from '../../models';
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (currentUserId: string) => {
   const users = await User.find(
-    {},
+    { _id: { $ne: currentUserId } },
     { _id: 1, name: 1, surname: 1, avatar: 1 }
   ).lean();
 
