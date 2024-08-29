@@ -19,6 +19,11 @@ const createChatWithUpdateUsers = (currentUser, partner) => __awaiter(void 0, vo
         models_1.User.findByIdAndUpdate(currentUser, { $push: { chats: chat._id } }),
         models_1.User.findByIdAndUpdate(partner, { $push: { chats: chat._id } }),
     ]);
-    return chat;
+    const otherUser = yield models_1.User.findById(partner).select('_id name surname avatar');
+    return {
+        _id: chat._id,
+        otherUser: otherUser || null,
+        latestMessage: null,
+    };
 });
 exports.createChatWithUpdateUsers = createChatWithUpdateUsers;

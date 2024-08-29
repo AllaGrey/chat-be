@@ -13,5 +13,13 @@ export const createChatWithUpdateUsers = async (
     User.findByIdAndUpdate(partner, { $push: { chats: chat._id } }),
   ]);
 
-  return chat;
+  const otherUser = await User.findById(partner).select(
+    '_id name surname avatar'
+  );
+
+  return {
+    _id: chat._id,
+    otherUser: otherUser || null,
+    latestMessage: null,
+  };
 };
