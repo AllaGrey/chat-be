@@ -15,7 +15,7 @@ const models_1 = require("../../models");
 const deleteChat = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     yield models_1.Chat.findOneAndDelete({
-        chat: id,
+        _id: id,
     });
     res.status(200).json('chat was successfully deleted');
 });

@@ -4,8 +4,9 @@ import { Chat } from '../../models';
 
 const deleteChat = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
+
   await Chat.findOneAndDelete({
-    chat: id,
+    _id: id,
   });
 
   res.status(200).json('chat was successfully deleted');
