@@ -5,6 +5,7 @@ export {
   hashPassword,
   comparePassword,
   createUser,
+  getAllUsers,
 } from './users';
 
 export {

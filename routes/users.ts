@@ -1,10 +1,14 @@
 import { Router } from 'express';
-import { getCurrentUserCtrl } from '../controllers';
+import {
+  getAllUsersCtrl,
+  getCurrentUserCtrl,
+  updateUserCtrl,
+} from '../controllers';
 import { authValidation, updateUserValidation } from '../middlewares';
-import { updateUserCtrl } from '../controllers/auth';
 
 const usersRouter = Router();
 
+usersRouter.get('/', authValidation, getAllUsersCtrl);
 usersRouter.get('/current', authValidation, getCurrentUserCtrl);
 usersRouter.put('/', authValidation, updateUserValidation, updateUserCtrl);
 

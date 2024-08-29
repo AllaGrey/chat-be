@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUser = exports.updateUserDataValidation = exports.comparePassword = exports.hashPassword = exports.createToken = exports.registerDataValidation = exports.loginDataValidation = void 0;
+exports.getAllUsers = exports.createUser = exports.updateUserDataValidation = exports.comparePassword = exports.hashPassword = exports.createToken = exports.registerDataValidation = exports.loginDataValidation = void 0;
 var loginDataValidation_1 = require("./loginDataValidation");
 Object.defineProperty(exports, "loginDataValidation", { enumerable: true, get: function () { return loginDataValidation_1.loginDataValidation; } });
 var registerDataValidation_1 = require("./registerDataValidation");
@@ -15,3 +15,5 @@ var updateUserDataValidation_1 = require("./updateUserDataValidation");
 Object.defineProperty(exports, "updateUserDataValidation", { enumerable: true, get: function () { return updateUserDataValidation_1.updateUserDataValidation; } });
 var createUser_1 = require("./createUser");
 Object.defineProperty(exports, "createUser", { enumerable: true, get: function () { return createUser_1.createUser; } });
+var getAllUsers_1 = require("./getAllUsers");
+Object.defineProperty(exports, "getAllUsers", { enumerable: true, get: function () { return getAllUsers_1.getAllUsers; } });

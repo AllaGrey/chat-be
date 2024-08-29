@@ -5,3 +5,4 @@ export { hashPassword } from './hashPassword';
 export { comparePassword } from './comparePassword';
 export { updateUserDataValidation } from './updateUserDataValidation';
 export { createUser } from './createUser';
+export { getAllUsers } from './getAllUsers';
