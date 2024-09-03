@@ -1,1 +1,1 @@
-export { setupSocketIO } from './socketService';
+export { setupAbly } from './socketService';

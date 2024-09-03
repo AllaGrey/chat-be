@@ -8,31 +8,55 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.setupSocketIO = void 0;
-const socket_io_1 = require("socket.io");
-const utils_1 = require("../../utils");
-const models_1 = require("../../models");
-const setupSocketIO = (server) => {
-    const allowedOrigins = (0, utils_1.getAllowedOrigins)();
-    const io = new socket_io_1.Server(server, {
-        cors: {
-            origin: allowedOrigins,
-            methods: ['GET', 'POST'],
-            credentials: true,
-        },
-    });
-    io.on('connection', socket => {
-        console.log('A user connected');
-        socket.on('sendMessage', (message) => __awaiter(void 0, void 0, void 0, function* () {
-            const data = JSON.parse(message);
-            const newMessage = yield models_1.Message.create(data);
-            io.emit('message', JSON.stringify(newMessage));
-        }));
-        socket.on('disconnect', () => {
-            console.log('User disconnected');
-        });
-    });
-    return io;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-exports.setupSocketIO = setupSocketIO;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.setupAbly = void 0;
+const ably_1 = __importDefault(require("ably"));
+const models_1 = require("../../models");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const { ABLY_API_KEY } = process.env;
+const setupAbly = (server) => {
+    const ably = new ably_1.default.Realtime({ key: ABLY_API_KEY });
+    const channel = ably.channels.get('chat');
+    server.on('request', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        if (req.method === 'POST' && req.url === '/sendMessage') {
+            let body = '';
+            req.on('data', chunk => {
+                body += chunk.toString();
+            });
+            req.on('end', () => __awaiter(void 0, void 0, void 0, function* () {
+                const data = JSON.parse(body);
+                try {
+                    const newMessage = yield models_1.Message.create(data);
+                    console.log('New message created:', newMessage);
+                    channel
+                        .publish('message', JSON.stringify(newMessage))
+                        .then(() => {
+                        console.log('Message published successfully');
+                    })
+                        .catch((err) => {
+                        console.error('Failed to publish message:', err);
+                    });
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: true, message: newMessage }));
+                }
+                catch (error) {
+                    console.error('Error creating message:', error);
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, error: error }));
+                }
+            }));
+        }
+    }));
+    ably.connection.on('connected', () => {
+        console.log('Connected to Ably');
+    });
+    ably.connection.on('disconnected', () => {
+        console.log('Disconnected from Ably');
+    });
+    return ably;
+};
+exports.setupAbly = setupAbly;

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import app from './app';
 import { Server } from 'http';
-import { setupSocketIO } from './services';
+import { setupAbly } from './services';
 
 const { PORT, MONGODB_URI } = process.env;
 
@@ -23,7 +23,7 @@ const startServer = () => {
     console.log(`Server is running on port ${PORT}`);
   }) as Server;
 
-  setupSocketIO(server);
+  setupAbly(server);
 };
 
 (async () => {

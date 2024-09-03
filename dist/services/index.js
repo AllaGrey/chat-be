@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setupSocketIO = exports.createChatWithUpdateUsers = exports.getUserChatsWithDetails = exports.addChatDataValidation = exports.getAllUsers = exports.createUser = exports.comparePassword = exports.hashPassword = exports.createToken = exports.loginDataValidation = exports.registerDataValidation = void 0;
+exports.setupAbly = exports.createChatWithUpdateUsers = exports.getUserChatsWithDetails = exports.addChatDataValidation = exports.getAllUsers = exports.createUser = exports.comparePassword = exports.hashPassword = exports.createToken = exports.loginDataValidation = exports.registerDataValidation = void 0;
 var users_1 = require("./users");
 Object.defineProperty(exports, "registerDataValidation", { enumerable: true, get: function () { return users_1.registerDataValidation; } });
 Object.defineProperty(exports, "loginDataValidation", { enumerable: true, get: function () { return users_1.loginDataValidation; } });
@@ -14,4 +14,4 @@ Object.defineProperty(exports, "addChatDataValidation", { enumerable: true, get:
 Object.defineProperty(exports, "getUserChatsWithDetails", { enumerable: true, get: function () { return chats_1.getUserChatsWithDetails; } });
 Object.defineProperty(exports, "createChatWithUpdateUsers", { enumerable: true, get: function () { return chats_1.createChatWithUpdateUsers; } });
 var sockets_1 = require("./sockets");
-Object.defineProperty(exports, "setupSocketIO", { enumerable: true, get: function () { return sockets_1.setupSocketIO; } });
+Object.defineProperty(exports, "setupAbly", { enumerable: true, get: function () { return sockets_1.setupAbly; } });

@@ -31,7 +31,7 @@ const startServer = () => {
     const server = app_1.default.listen(PORT || 3001, () => {
         console.log(`Server is running on port ${PORT}`);
     });
-    (0, services_1.setupSocketIO)(server);
+    (0, services_1.setupAbly)(server);
 };
 (() => __awaiter(void 0, void 0, void 0, function* () {
     yield dbConnection();

@@ -4,7 +4,7 @@ import { Chat, Message } from '../../models';
 
 const createMessage = async (req: Request, res: Response): Promise<void> => {
   const { text, chat } = req.body;
-  const currentUser = '66c99faf1d874074cf2e4344';
+  const { _id: currentUser } = res.locals.user;
 
   const message = await Message.create({
     text,

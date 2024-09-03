@@ -14,7 +14,7 @@ const utils_1 = require("../../utils");
 const models_1 = require("../../models");
 const createMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { text, chat } = req.body;
-    const currentUser = '66c99faf1d874074cf2e4344';
+    const { _id: currentUser } = res.locals.user;
     const message = yield models_1.Message.create({
         text,
         chat,
