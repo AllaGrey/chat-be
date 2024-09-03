@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
-import { ctrlWrapper } from '../../utils';
+import { HttpError, ctrlWrapper } from '../../utils';
 import { Chat, Message } from '../../models';
+import { publishMessage } from '../../services';
+import { IMessage } from '../../types';
+import { Document } from 'mongoose';
 
 const createMessage = async (req: Request, res: Response): Promise<void> => {
   const { text, chat } = req.body;
@@ -13,6 +16,10 @@ const createMessage = async (req: Request, res: Response): Promise<void> => {
   });
 
   console.log(message);
+
+  if (!message) throw HttpError(500, 'Internal Server Error');
+
+  const publishedMessage = await publishMessage(message);
 
   res.status(201).json(message);
 };

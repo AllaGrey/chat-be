@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setupAbly = exports.createChatWithUpdateUsers = exports.getUserChatsWithDetails = exports.addChatDataValidation = exports.getAllUsers = exports.createUser = exports.comparePassword = exports.hashPassword = exports.createToken = exports.loginDataValidation = exports.registerDataValidation = void 0;
+exports.publishMessage = exports.setupAbly = exports.createChatWithUpdateUsers = exports.getUserChatsWithDetails = exports.addChatDataValidation = exports.getAllUsers = exports.createUser = exports.comparePassword = exports.hashPassword = exports.createToken = exports.loginDataValidation = exports.registerDataValidation = void 0;
 var users_1 = require("./users");
 Object.defineProperty(exports, "registerDataValidation", { enumerable: true, get: function () { return users_1.registerDataValidation; } });
 Object.defineProperty(exports, "loginDataValidation", { enumerable: true, get: function () { return users_1.loginDataValidation; } });
@@ -15,3 +15,4 @@ Object.defineProperty(exports, "getUserChatsWithDetails", { enumerable: true, ge
 Object.defineProperty(exports, "createChatWithUpdateUsers", { enumerable: true, get: function () { return chats_1.createChatWithUpdateUsers; } });
 var sockets_1 = require("./sockets");
 Object.defineProperty(exports, "setupAbly", { enumerable: true, get: function () { return sockets_1.setupAbly; } });
+Object.defineProperty(exports, "publishMessage", { enumerable: true, get: function () { return sockets_1.publishMessage; } });

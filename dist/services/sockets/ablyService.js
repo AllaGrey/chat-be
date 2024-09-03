@@ -8,23 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createMessageCtrl = void 0;
-const utils_1 = require("../../utils");
-const models_1 = require("../../models");
-const services_1 = require("../../services");
-const createMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { text, chat } = req.body;
-    const { _id: currentUser } = res.locals.user;
-    const message = yield models_1.Message.create({
-        text,
-        chat,
-        user: currentUser,
-    });
-    console.log(message);
-    if (!message)
-        throw (0, utils_1.HttpError)(500, 'Internal Server Error');
-    const publishedMessage = yield (0, services_1.publishMessage)(message);
-    res.status(201).json(message);
+exports.publishMessage = void 0;
+const ably_1 = __importDefault(require("ably"));
+const { ABLY_API_KEY } = process.env;
+const ably = new ably_1.default.Realtime({ key: ABLY_API_KEY });
+const channel = ably.channels.get('chat');
+const publishMessage = (newMessage) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield channel.publish('message', JSON.stringify(newMessage));
+        console.log('Message published successfully');
+    }
+    catch (error) {
+        console.error('Error creating message or publishing to Ably:', error);
+    }
 });
-exports.createMessageCtrl = (0, utils_1.ctrlWrapper)(createMessage);
+exports.publishMessage = publishMessage;

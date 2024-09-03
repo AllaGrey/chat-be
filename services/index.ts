@@ -14,4 +14,4 @@ export {
   createChatWithUpdateUsers,
 } from './chats';
 
-export { setupAbly } from './sockets';
+export { setupAbly, publishMessage } from './sockets';
