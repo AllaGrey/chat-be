@@ -16,6 +16,7 @@ const messageSchema: Schema = new Schema(
       ref: 'User',
       required: [true, 'User is required'],
     },
+    readBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },
   { timestamps: true, versionKey: false }
 );

@@ -20,6 +20,7 @@ const createMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         text,
         chat,
         user: currentUser,
+        readBy: [currentUser],
     });
     console.log(message);
     if (!message)

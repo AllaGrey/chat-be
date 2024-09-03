@@ -17,5 +17,6 @@ const messageSchema = new mongoose_1.Schema({
         ref: 'User',
         required: [true, 'User is required'],
     },
+    readBy: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'User' }],
 }, { timestamps: true, versionKey: false });
 exports.Message = (0, mongoose_1.model)('Message', messageSchema);

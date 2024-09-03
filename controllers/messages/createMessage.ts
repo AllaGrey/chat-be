@@ -1,9 +1,7 @@
 import { Request, Response } from 'express';
 import { HttpError, ctrlWrapper } from '../../utils';
-import { Chat, Message } from '../../models';
+import { Message } from '../../models';
 import { publishMessage } from '../../services';
-import { IMessage } from '../../types';
-import { Document } from 'mongoose';
 
 const createMessage = async (req: Request, res: Response): Promise<void> => {
   const { text, chat } = req.body;
@@ -13,6 +11,7 @@ const createMessage = async (req: Request, res: Response): Promise<void> => {
     text,
     chat,
     user: currentUser,
+    readBy: [currentUser],
   });
 
   console.log(message);
