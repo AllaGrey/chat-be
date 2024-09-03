@@ -20,10 +20,15 @@ const getUserChatsWithDetails = (currentUserId) => __awaiter(void 0, void 0, voi
             .sort({ createdAt: -1 })
             .select('text createdAt')
             .lean();
+        const unreadMessagesCount = yield models_1.Message.countDocuments({
+            chat: chat._id,
+            readBy: { $ne: currentUserId },
+        });
         return {
             _id: chat._id,
             otherUser: otherUser || null,
             latestMessage: latestMessage || null,
+            unreadMessagesCount,
         };
     })));
     return chatsWithDetails;

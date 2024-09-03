@@ -20,10 +20,16 @@ export const getUserChatsWithDetails = async (currentUserId: string) => {
         .select('text createdAt')
         .lean();
 
+      const unreadMessagesCount = await Message.countDocuments({
+        chat: chat._id,
+        readBy: { $ne: currentUserId },
+      });
+
       return {
         _id: chat._id,
         otherUser: otherUser || null,
         latestMessage: latestMessage || null,
+        unreadMessagesCount,
       };
     })
   );
