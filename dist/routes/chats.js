@@ -7,5 +7,6 @@ const chatsRouter = (0, express_1.Router)();
 chatsRouter.post('/', middlewares_1.authValidation, controllers_1.createChatCtrl);
 chatsRouter.get('/', middlewares_1.authValidation, controllers_1.getAllUserChatsCtrl);
 chatsRouter.get('/:id', middlewares_1.authValidation, controllers_1.getChatByIdCtrl);
+chatsRouter.put('/:id', middlewares_1.authValidation, controllers_1.updateChatCtrl);
 chatsRouter.delete('/:id', middlewares_1.authValidation, controllers_1.deleteChatCtrl);
 exports.default = chatsRouter;
